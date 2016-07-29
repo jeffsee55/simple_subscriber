@@ -74,6 +74,7 @@ class Simple_Subscriber {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
+		$this->define_post_hooks();
 		$this->define_public_hooks();
 
 	}
@@ -109,6 +110,11 @@ class Simple_Subscriber {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-simple-subscriber-i18n.php';
 
 		/**
+		 * The class responsible for processing forms
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-simple-subscriber-form-processor.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-subscriber-admin.php';
@@ -141,6 +147,16 @@ class Simple_Subscriber {
 	}
 
 	/**
+	 * Register all of the hooks related to the posts from the website
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_post_hooks() {
+    $form_processor = new Simple_Subscriber_Form_Processor;
+  }
+
+	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
@@ -153,7 +169,6 @@ class Simple_Subscriber {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -169,6 +184,7 @@ class Simple_Subscriber {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+    $this->loader->add_action( 'widgets_init',       $plugin_public, 'register_widgets' );
 
 	}
 

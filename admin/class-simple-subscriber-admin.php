@@ -52,7 +52,11 @@ class Simple_Subscriber_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
-	}
+    $this->load_dependencies();
+  }
+
+  private function load_dependencies() {
+  }
 
 	/**
 	 * Register the stylesheets for the admin area.
