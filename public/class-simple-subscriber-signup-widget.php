@@ -40,9 +40,9 @@ class Simple_Subscriber_Signup_Widget extends WP_Widget {
     $form .= '</div>';
     $form .= '<div class="section-content">';
     $form .= '<form class="form-inline" style="text-align: center" action="/wp-admin/admin-post.php" method="post">';
-    $form .= '<input type="hidden" name="action" value="simple_subsriber_signup">';
+    $form .= '<input type="hidden" name="action" value="simple_subscriber_signup">';
     $form .= '<div class="form-group">';
-    $form .= '<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email">';
+    $form .= '<input name="subscriber_email" type="email" required class="form-control" id="subsriber_email" placeholder="Email">';
     $form .= '</div>';
     $form .= '<button type="submit" class="btn btn-primary-outline">Subscribe</button>';
     $form .= '</form>';

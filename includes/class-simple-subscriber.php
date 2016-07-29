@@ -154,6 +154,9 @@ class Simple_Subscriber {
 	 */
 	private function define_post_hooks() {
     $form_processor = new Simple_Subscriber_Form_Processor;
+
+    $this->loader->add_action( 'admin_post_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    $this->loader->add_action( 'admin_post_simple_subscriber_signup', $form_processor, 'process_signup_form' );
   }
 
 	/**

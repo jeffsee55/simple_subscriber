@@ -13,6 +13,6 @@
 class Simple_Subscriber_Form_Processor {
 
   public function process_signup_form() {
-    exit( var_dump( 'yo' ) );
+    exit( var_dump( $_POST ) );
   }
 }
