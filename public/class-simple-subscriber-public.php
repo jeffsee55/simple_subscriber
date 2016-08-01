@@ -115,32 +115,31 @@ class Simple_Subscriber_Public {
 
   }
 
+
   public function register_widgets() {
     register_widget( 'Simple_Subscriber_Signup_Widget' );
   }
 
-  public function sigin_user() {
-  }
-
-  public function register_user() {
-  }
 
   public function filter_private_categories( $query ) {
-    if( $private_cat_ids = $this->is_category_private( $query )) {
+    $private_cat_ids = $this->get_private_cat_ids();
+    if( $this->is_private_request( $query, $private_cat_ids ) ) {
       $this->authorize();
     } else {
-      $query->set( 'category__not_in', $private_cat_ids);
+      if( !is_admin() )
+        $query->set( 'category__not_in', $private_cat_ids);
     }
   }
 
+
   public function authorize_user_for_query( $query ) {
     if( isset( $query->query['category_name'] ) ) {
-      // add detection for a sub category
       if( $query->query['category_name'] == 'investors' ) {
         $this->authorize();
       }
     }
   }
+
 
   public function authorize_user_for_post() {
     global $post;
@@ -152,6 +151,7 @@ class Simple_Subscriber_Public {
     endif;
   }
 
+
   private function authorize() {
     if(! is_user_logged_in() ) {
       wp_redirect( '/sign-in?message=sign_in_required' );
@@ -160,28 +160,26 @@ class Simple_Subscriber_Public {
   }
 
 
-  public function render_signin_form() {
-    get_template_part();
-  }
-
-  public function render_signup_form() {
-    get_template_part();
-  }
-
-  private function is_category_private( $query ) {
-    if( empty( $query->query_vars['category_name'] ) )
-      return null;
-
-    $request_cat_object = get_category_by_slug( $query->query_vars['category_name'] );
-    $request_cat_id     = $request_cat_object->cat_ID;
+  private function get_private_cat_ids() {
     $investor_cat_id    = get_category_by_slug( 'investors' )->cat_ID;
     $private_cat_ids    = get_term_children( $investor_cat_id, 'category' );
     $private_cat_ids[]  = $investor_cat_id;
 
+    return $private_cat_ids;
+  }
+
+
+  private function is_private_request( $query, $private_cat_ids ) {
+    if( empty( $query->query_vars['category_name'] ) )
+      return false;
+
+    $request_cat_object = get_category_by_slug( $query->query_vars['category_name'] );
+    $request_cat_id     = $request_cat_object->cat_ID;
+
     if( in_array( $request_cat_id, $private_cat_ids ) ) {
-      return $private_cat_ids;
+      return true;
     } else {
-      return null;
+      return false;
     }
   }
 }
