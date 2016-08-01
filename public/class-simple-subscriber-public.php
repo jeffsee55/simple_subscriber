@@ -106,13 +106,14 @@ class Simple_Subscriber_Public {
     * class.
     */
 
-    // Enqueued script with localized data.
-    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simple-subscriber-public.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'simple_subscriber_vars', array(
-        'button' => __('Sign Up', 'simple_subscriber')
-      )
+    wp_enqueue_script( 'jquery-form' );
+    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simple-subscriber-public.js', array( 'jquery' ), $this->version, true);
+    wp_localize_script( $this->plugin_name, 'SSAjax', 
+      array( 
+        'ajaxurl'      => admin_url( 'admin-ajax.php' ) ,
+        'signup_nonce' => wp_create_nonce( 'ss-ajax-create-nonce' ),
+      ) 
     );
-
   }
 
 

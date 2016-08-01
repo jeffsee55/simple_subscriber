@@ -13,4 +13,23 @@
  */
 ?>
 
+<div class="wrap">
+<h1>Newsletter Subscribers</h1>
+
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<table class="wp-list-table widefat fixed striped users">
+	<thead>
+	<tr>
+		<th scope="col" id="email" class="manage-column column-email sortable desc"><a href="http://ntb.dev/wp-admin/users.php?orderby=email&amp;order=asc"><span>Email</span><span class="sorting-indicator"></span></a></th></tr>
+	</thead>
+
+	<tbody id="the-list" data-wp-lists="list:user">
+		
+  <?php
+    foreach( get_site_option( 'ss_email_list' ) as $subscriber ) {
+      echo '<tr id="">user_4" class="editor" value="4"><td class="name column-name" data-colname="Name">' . $subscriber . '</td><td class="email column-email" data-colname="Email"><a href="mailto: ' . $subscriber . '">' . $subscriber . '</a></td></tr>';
+    };
+  ?>
+
+</table>
+</div>

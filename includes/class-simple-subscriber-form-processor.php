@@ -13,17 +13,22 @@
 class Simple_Subscriber_Form_Processor {
 
   public function process_signup_form() {
-    //$email = isset($_POST['subscriber_email']) ?: null;
-    //if( !$email )
-      //die();
+    $nonce = $_POST['signup_nonce'];
+    if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) )
+      die ( 'Busted!');
 
-    //if( user_exists( $email ) ) {
-      //add_user_to_blog(  );
-    //} else {
-      //$userdata = array(
-        //'user_email' => $email,
-      //);
-      //wp_insert_user( $userdata );
-    //}
+    $email = $_POST['subscriber_email'];
+    $email_list = get_site_option( 'ss_email_list', array() );
+    $email_list[] = $email;
+
+    update_site_option( 'ss_email_list', array_unique( $email_list ) );
+    if( true ) :
+      header('HTTP/1.0 200 Success', true, 200);
+    else :
+      header('HTTP/1.0 404 Not Found', true, 404);
+    endif;
+
+    // IMPORTANT: don't forget to "exit"
+    exit;
   }
 }

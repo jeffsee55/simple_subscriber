@@ -104,4 +104,17 @@ class Simple_Subscriber_Admin {
 
 	}
 
+  public function setup_admin_ui() {
+    add_menu_page(
+      'Simple Subscriptions',
+      'Newsletter Subscriptions',
+      'manage_options',
+      'newsletter-subscribers',
+      array( $this, 'render_subscriber_page' )
+    );
+  }
+
+  public function render_subscriber_page() {
+    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-display.php' );
+  }
 }

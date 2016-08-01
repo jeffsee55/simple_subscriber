@@ -2,3 +2,22 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+#ss_signup_form .form-group input:first-child {
+  margin-right: 5px;
+}
+
+.signup-notice {
+  padding: 10px;
+  text-align: center;
+  line-height: 3;
+  border-radius: 3px;
+}
+
+.signup-notice.success {
+  background: #dfe8df;
+}
+
+.signup-notice.failure {
+  background: #e2bcbc;
+}
