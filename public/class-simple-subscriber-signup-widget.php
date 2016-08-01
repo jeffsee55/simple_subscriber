@@ -39,13 +39,14 @@ class Simple_Subscriber_Signup_Widget extends WP_Widget {
     $form .= '<span style="visibility: visible; transform: translateY(0) scale(1); opacity: 1; -webkit-transform: translateY(0) scale(1); opacity: 1; -webkit-transition: -webkit-transform 1s ease-in-out 0s, opacity 1s ease-in-out 0s; transition: transform 1s ease-in-out 0s, opacity 1s ease-in-out 0s; -webkit-perspective: 1000; -webkit-backface-visibility: hidden; "></span>';
     $form .= '</div>';
     $form .= '<div class="section-content">';
-    $form .= '<form class="form-inline" style="text-align: center" action="/wp-admin/admin-post.php" method="post">';
+    $form .= '<form class="form-inline" id="subscriber_signup_form" method="post" style="text-align: center">';
     $form .= '<input type="hidden" name="action" value="simple_subscriber_signup">';
     $form .= '<div class="form-group">';
     $form .= '<input name="subscriber_email" type="email" required class="form-control" id="subsriber_email" placeholder="Email">';
     $form .= '</div>';
     $form .= '<button type="submit" class="btn btn-primary-outline">Subscribe</button>';
     $form .= '</form>';
+    $form .= '<div id="feedback"></div>';
     $form .= '</div>';
 
     echo $form;

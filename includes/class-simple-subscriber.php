@@ -155,8 +155,10 @@ class Simple_Subscriber {
 	private function define_post_hooks() {
     $form_processor = new Simple_Subscriber_Form_Processor;
 
-    $this->loader->add_action( 'admin_post_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
-    $this->loader->add_action( 'admin_post_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    //$this->loader->add_action( 'admin_post_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    //$this->loader->add_action( 'admin_post_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    $this->loader->add_action( 'wp_ajax_simple_subscriber_signup', $form_processor, 'process_signup_form' );
   }
 
 	/**
@@ -185,9 +187,13 @@ class Simple_Subscriber {
 
 		$plugin_public = new Simple_Subscriber_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-    $this->loader->add_action( 'widgets_init',       $plugin_public, 'register_widgets' );
+		$this->loader->add_action( 'wp_enqueue_scripts',      $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts',      $plugin_public, 'enqueue_scripts' );
+    $this->loader->add_action( 'widgets_init',            $plugin_public, 'register_widgets' );
+    $this->loader->add_action( 'pre_get_posts',           $plugin_public, 'authorize_user_for_query' );
+    $this->loader->add_action( 'wp',                      $plugin_public, 'authorize_user_for_post' );
+    $this->loader->add_action( 'admin_post_nopriv_signin',$plugin_public, 'signin_user' );
+    $this->loader->add_action( 'admin_post_nopriv_signup',$plugin_public, 'register_user' );
 
 	}
 

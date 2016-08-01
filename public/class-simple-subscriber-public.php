@@ -106,7 +106,12 @@ class Simple_Subscriber_Public {
     * class.
     */
 
+    // Enqueued script with localized data.
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simple-subscriber-public.js', array( 'jquery' ), $this->version, false );
+    wp_localize_script( $this->plugin_name, 'simple_subscriber_vars', array(
+        'button' => __('Sign Up', 'simple_subscriber')
+      )
+    );
 
   }
 
@@ -114,4 +119,42 @@ class Simple_Subscriber_Public {
     register_widget( 'Simple_Subscriber_Signup_Widget' );
   }
 
+  public function sigin_user() {
+  }
+
+  public function register_user() {
+  }
+
+  public function authorize_user_for_query( $query ) {
+    if( isset( $query->query['category_name'] ) ) {
+      if( $query->query['category_name'] == 'investors' ) {
+        exit( 'hi' );
+      }
+    }
+  }
+
+  public function authorize_user_for_post() {
+    global $post;
+    if( is_single() && $post->post_type == 'post' ) :
+      $categories = wp_get_object_terms( $post->ID, 'category', array( 'fields' => 'slugs' )  );
+      if( in_array( 'investors', $categories ) ) {
+        $this->authorize();
+      }
+    endif;
+  }
+
+  private function authorize() {
+    if( !is_user_logged_in() ) {
+      wp_redirect( '/sign-in' );
+    }
+  }
+
+
+  public function render_signin_form() {
+    get_template_part()
+  }
+
+  public function render_signup_form() {
+    get_template_part()
+  }
 }
