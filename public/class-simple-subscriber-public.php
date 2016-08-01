@@ -151,10 +151,10 @@ class Simple_Subscriber_Public {
 
 
   public function render_signin_form() {
-    get_template_part()
+    get_template_part();
   }
 
   public function render_signup_form() {
-    get_template_part()
+    get_template_part();
   }
 }
