@@ -108,11 +108,11 @@ class Simple_Subscriber_Public {
 
     wp_enqueue_script( 'jquery-form' );
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simple-subscriber-public.js', array( 'jquery' ), $this->version, true);
-    wp_localize_script( $this->plugin_name, 'SSAjax', 
-      array( 
+    wp_localize_script( $this->plugin_name, 'SSAjax',
+      array(
         'ajaxurl'      => admin_url( 'admin-ajax.php' ) ,
         'signup_nonce' => wp_create_nonce( 'ss-ajax-create-nonce' ),
-      ) 
+      )
     );
   }
 
@@ -153,27 +153,28 @@ class Simple_Subscriber_Public {
   }
 
 
-  public function render_profile_page( $template ) {
-    // if is the profile page
-    // return $this_get_template_hierarchy( 'page-profile' );
-    // else
-    // return $template
+  public function render_signin_page( $controller ) {
+    $controller->addPage( new \VirtualPages\Page( '/signin' ) )
+      ->setTitle( 'My First Custom Page' )
+      ->setContent( '<p>Hey, this is my first cutom virtual page!</p>' )
+      ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_signin_template' ) ) );
   }
 
-  private function get_template_hierarchy( $template ) {
-    // Get the template slug
-    $template_slug = rtrim( $template, '.php' );
-    $template = $template_slug . '.php';
- 
-    // Check if a custom template exists in the theme folder, if not, load the plugin template file
-    if ( $theme_file = locate_template( array( 'plugin_template/' . $template ) ) ) {
-      $file = $theme_file;
-    }
-    else {
-      $file = plugin_dir_path( __FILE__ ) . '/partials/' . $template;
-    }
- 
-    return apply_filters( 'rc_repl_template_' . $template, $file );
+  public function render_profile_page( $controller ) {
+    $controller->addPage( new \VirtualPages\Page( '/profile' ) )
+      ->setTitle( 'Profile' )
+      ->setContent( 'Update your information below' ) 
+      ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_profile_template' ) ) );
+  }
+
+  public function find_profile_template() {
+    $page = plugin_dir_path( __FILE__ ) . 'partials/page-profile.php';
+    return $page;
+  }
+
+  public function find_signin_template() {
+    $page = plugin_dir_path( __FILE__ ) . 'partials/page-signin.php';
+    return $page;
   }
 
 
