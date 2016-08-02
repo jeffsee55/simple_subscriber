@@ -154,7 +154,6 @@ class Simple_Subscriber_Public {
 
 
   public function render_profile_page( $template ) {
-    exit( var_dump( $template ) );
     // if is the profile page
     // return $this_get_template_hierarchy( 'page-profile' );
     // else
