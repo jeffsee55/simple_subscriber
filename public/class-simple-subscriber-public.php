@@ -153,6 +153,31 @@ class Simple_Subscriber_Public {
   }
 
 
+  public function render_profile_page( $template ) {
+    exit( var_dump( $template ) );
+    // if is the profile page
+    // return $this_get_template_hierarchy( 'page-profile' );
+    // else
+    // return $template
+  }
+
+  private function get_template_hierarchy( $template ) {
+    // Get the template slug
+    $template_slug = rtrim( $template, '.php' );
+    $template = $template_slug . '.php';
+ 
+    // Check if a custom template exists in the theme folder, if not, load the plugin template file
+    if ( $theme_file = locate_template( array( 'plugin_template/' . $template ) ) ) {
+      $file = $theme_file;
+    }
+    else {
+      $file = plugin_dir_path( __FILE__ ) . '/partials/' . $template;
+    }
+ 
+    return apply_filters( 'rc_repl_template_' . $template, $file );
+  }
+
+
   private function authorize() {
     if(! is_user_logged_in() ) {
       wp_redirect( '/sign-in?message=sign_in_required' );

@@ -27,7 +27,7 @@
 		
   <?php
     foreach( get_site_option( 'ss_email_list' ) as $subscriber ) {
-      echo '<tr id="">user_4" class="editor" value="4"><td class="name column-name" data-colname="Name">' . $subscriber . '</td><td class="email column-email" data-colname="Email"><a href="mailto: ' . $subscriber . '">' . $subscriber . '</a></td></tr>';
+      echo '<tr id=""><td class="email column-email" data-colname="Email"><a href="mailto: ' . $subscriber . '">' . $subscriber . '</a></td></tr>';
     };
   ?>
 
