@@ -46,9 +46,8 @@
   }
 
   function profileResponse(responseText, statusText, xhr, $form)  {
-    console.log( responseText, statusText, xhr, $form );
     setTimeout(function () {
-      $('.profile-submit').hide().html( '<p style="width: 100%;" class="signup-notice success">' + statusText + '</p>' ).fadeIn()
+      $('.profile-submit').hide().html( '<p style="width: 100%;" class="signup-notice success">' + xhr.statusText + '</p>' ).fadeIn()
     }, 2000);
   }
 

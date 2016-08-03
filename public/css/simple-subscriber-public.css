@@ -11,6 +11,10 @@
   text-align: right;
 }
 
+#ss_profile_form .radio label {
+  text-align: left;
+}
+
 .signup-notice {
   padding: 10px;
   text-align: center;

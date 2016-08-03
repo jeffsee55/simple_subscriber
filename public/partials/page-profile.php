@@ -48,21 +48,33 @@ $user = wp_get_current_user();
       <input name="password_confirm" class="form-control" type="password" value="" id="password-confirm-input">
     </div>
   </div>
-  <fieldset class="form-group">
-    <legend>Email Preferences</legend>
-    <div class="radio">
-      <label>
-        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-        Option one is this and that&mdash;be sure to include why it's great
-      </label>
+  <div class="form-group row">
+    <label for="email-preference-radio" class="col-xs-4 col-form-label">Email Preferences</label>
+    <?php
+    $option = get_user_meta( $user->ID, 'email_alerts', true );
+    if( ! is_null( $option ) ) {
+      $option = $option;
+    } else {
+      $option = '1';
+    }
+    ?>
+    <div class="col-xs-8">
+      <div class="radio">
+        <label>
+          <input type="radio" name="email_alerts" id="optionsRadios1" value="1"
+            <?php echo ( ( $option === '1' ) ? 'checked' : '' ); ?> >
+          I would like receive newsletter emails.
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="email_alerts" id="optionsRadios2" value="0"
+            <?php echo ( ( $option === '0' ) ? 'checked' : '' ); ?> >
+          I would not like receive newsletter emails.
+        </label>
+      </div>
     </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-        Option two can be something else and selecting it will deselect option one
-      </label>
-    </div>
-  </fieldset>
+  </div>
   <div class="form-group row profile-submit">
     <button type="submit" class="m-x-auto btn btn-primary">Update</button>
     <div id="feedback"></div>

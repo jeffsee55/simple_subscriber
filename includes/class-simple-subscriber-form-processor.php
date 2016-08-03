@@ -33,13 +33,12 @@ class Simple_Subscriber_Form_Processor {
   }
 
   public function process_profile_form() {
-    // $nonce = $_POST['signup_nonce'];
-    // if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) ) {
-    //   header('HTTP/1.0 404 Not Found', true, 404);
-    //   die ( 'Busted!');
-    // }
+    $nonce = $_POST['signup_nonce'];
+    if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) ) {
+      header('HTTP/1.0 404 Not Found', true, 404);
+      die ( 'Busted!');
+    }
 
-    $this->ajax_password( 200, $response );
     $userdata = array(
       'ID'    => get_current_user_id(),
     );
@@ -55,28 +54,24 @@ class Simple_Subscriber_Form_Processor {
       $userdata['user_pass'] = $_POST['password'];
       // sign in again
       $this->sign_in( $userdata );
-      $response = "Success";
-      $this->ajax_password( 200, $response );
     } else {
-      $response = "Passwords do not match";
-      $this->ajax_password( 400, $response );
+      $response = "Unable to update profile. Passwords do not match";
+      $this->ajax_response( 400, $response );
     }
 
     $user_id = wp_update_user( $userdata );
     if( is_wp_error( $user_id ) ) {
       $response = 'There was a problem updating your profile';
-      $this->ajax_password( 400, $response );
-    } else {
-      $response = 'Success';
-      $this->ajax_password( 200, $response );
+      $this->ajax_response( 400, $response );
     }
 
     $meta_keys = array(
       'phone',
+      'email_alerts'
     );
 
     foreach( $meta_keys as $key ) {
-      update_user_meta( $userdata['user_id'], $key, $_POST[$key] );
+      update_user_meta( $userdata['ID'], $key, $_POST[$key] );
     }
     $this->ajax_response( 200, 'Success' );
   }
