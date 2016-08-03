@@ -159,6 +159,7 @@ class Simple_Subscriber {
     //$this->loader->add_action( 'admin_post_simple_subscriber_signup', $form_processor, 'process_signup_form' );
     $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
     $this->loader->add_action( 'wp_ajax_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    $this->loader->add_action( 'wp_ajax_simple_subscriber_profile', $form_processor, 'process_profile_form' );
   }
 
 	/**

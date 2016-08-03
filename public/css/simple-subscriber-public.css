@@ -7,6 +7,10 @@
   margin-right: 5px;
 }
 
+#ss_profile_form label {
+  text-align: right;
+}
+
 .signup-notice {
   padding: 10px;
   text-align: center;
