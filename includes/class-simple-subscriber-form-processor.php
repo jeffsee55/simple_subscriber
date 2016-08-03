@@ -32,6 +32,20 @@ class Simple_Subscriber_Form_Processor {
     exit;
   }
 
+  public function process_signin_form() {
+    // $nonce = $_POST['signup_nonce'];
+    // if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) ) {
+    //   header('HTTP/1.0 404 Not Found', true, 404);
+    //   die ( 'Busted!');
+    // }
+
+    $userdata['user_email'] = esc_attr( $_POST['email'] );
+    $userdata['user_password'] = esc_attr( $_POST['password'] );
+    // sign in again
+    $this->sign_in( $userdata );
+    $this->ajax_response( 200, 'Success' );
+  }
+
   public function process_profile_form() {
     $nonce = $_POST['signup_nonce'];
     if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) ) {
@@ -52,7 +66,6 @@ class Simple_Subscriber_Form_Processor {
 
     if( $_POST['password'] == $_POST['password_confirm'] ) {
       $userdata['user_pass'] = $_POST['password'];
-      // sign in again
       $this->sign_in( $userdata );
     } else {
       $response = "Unable to update profile. Passwords do not match";
@@ -78,19 +91,22 @@ class Simple_Subscriber_Form_Processor {
 
   private function sign_in( $userdata ) {
   	$userdata['remember'] = true;
+    $user = get_user_by( 'email', $userdata['user_email'] );
+    $userdata['user_login'] = $user->user_login;
+
   	$user = wp_signon( $userdata, false );
   	if ( is_wp_error($user) ) {
-      $response = "Passwords not reset";
-      $this->ajax_password( 400, $response );
+      $response = $user->get_error_message();
+      $this->ajax_response( 400, $response );
     }
   }
 
   private function ajax_response( $status, $response ) {
     echo $response;
     if( $status == 400 ) :
-      header('HTTP/1.0 400 Input Error', true, 400);
+      header('HTTP/1.0 400 ' . $response, true, 400);
     else :
-      header('HTTP/1.0 200 Success', true, 200);
+      header('HTTP/1.0 200 ' . $response, true, 200);
     endif;
     exit;
   }

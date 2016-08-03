@@ -155,15 +155,13 @@ class Simple_Subscriber_Public {
 
   public function render_signin_page( $controller ) {
     $controller->addPage( new \VirtualPages\Page( '/signin' ) )
-      ->setTitle( 'My First Custom Page' )
-      ->setContent( '<p>Hey, this is my first cutom virtual page!</p>' )
+      ->setTitle( 'Sign In' )
       ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_signin_template' ) ) );
   }
 
   public function render_profile_page( $controller ) {
     $controller->addPage( new \VirtualPages\Page( '/profile' ) )
       ->setTitle( 'Profile' )
-      ->setContent( 'Update your information below' ) 
       ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_profile_template' ) ) );
   }
 

@@ -24,7 +24,6 @@ $user = wp_get_current_user();
     </div>
   </div>
   <div class="form-group row">
-    <input type="hidden" name="action" value="simple_subscriber_profile">
     <label for="example-email-input" class="col-xs-4 col-form-label">Email</label>
     <div class="col-xs-8">
       <input name="email" class="form-control" type="email" value="<?php echo $user->user_email; ?>" id="email-input">

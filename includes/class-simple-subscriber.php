@@ -160,6 +160,7 @@ class Simple_Subscriber {
     $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
     $this->loader->add_action( 'wp_ajax_simple_subscriber_signup', $form_processor, 'process_signup_form' );
     $this->loader->add_action( 'wp_ajax_simple_subscriber_profile', $form_processor, 'process_profile_form' );
+    $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signin', $form_processor, 'process_signin_form' );
   }
 
 	/**
@@ -198,6 +199,7 @@ class Simple_Subscriber {
     $this->loader->add_action( 'admin_post_nopriv_signin',$plugin_public, 'signin_user' );
     $this->loader->add_action( 'admin_post_nopriv_signup',$plugin_public, 'register_user' );
     $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_profile_page' );
+    $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_signin_page' );
 	}
 
 	/**

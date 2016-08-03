@@ -7,7 +7,8 @@
   margin-right: 5px;
 }
 
-#ss_profile_form label {
+#ss_profile_form label,
+#ss_signin_form label {
   text-align: right;
 }
 
