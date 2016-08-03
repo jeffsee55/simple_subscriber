@@ -132,7 +132,6 @@ class Simple_Subscriber_Public {
     }
   }
 
-
   public function authorize_user_for_query( $query ) {
     if( isset( $query->query['category_name'] ) ) {
       if( $query->query['category_name'] == 'investors' ) {
