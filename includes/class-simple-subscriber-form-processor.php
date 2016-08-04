@@ -40,7 +40,7 @@ class Simple_Subscriber_Form_Processor {
     }
 
     $userdata['user_email'] = esc_attr( $_POST['email'] );
-    $userdata['user_password'] = esc_attr( $_POST['password'] );
+    $userdata['user_pass'] = esc_attr( $_POST['password'] );
     // sign in again
     $this->sign_in( $userdata );
     $this->ajax_response( 200, 'Success' );
@@ -65,14 +65,14 @@ class Simple_Subscriber_Form_Processor {
       $userdata['last_name'] = $_POST['last_name'];
 
     if( $_POST['password'] == $_POST['password_confirm'] ) {
-      $userdata['user_password'] = $_POST['password'];
+      $userdata['user_pass'] = $_POST['password'];
+      $user_id = wp_update_user( $userdata );
       $this->sign_in( $userdata );
     } else {
       $response = "Unable to update profile. Passwords do not match";
       $this->ajax_response( 400, $response );
     }
 
-    $user_id = wp_update_user( $userdata );
     if( is_wp_error( $user_id ) ) {
       $response = 'There was a problem updating your profile';
       $this->ajax_response( 400, $response );
@@ -93,6 +93,7 @@ class Simple_Subscriber_Form_Processor {
   	$userdata['remember'] = true;
     $user = get_user_by( 'email', $userdata['user_email'] );
     $userdata['user_login'] = $user->user_login;
+    $userdata['user_password'] = $userdata['user_pass'];
 
   	$user = wp_signon( $userdata, false );
   	if ( is_wp_error($user) ) {

@@ -140,6 +140,10 @@ class Simple_Subscriber_Public {
     }
   }
 
+  public function signout() {
+    wp_logout();
+    wp_redirect( '/?message=signout' );
+  }
 
   public function authorize_user_for_post() {
     global $post;

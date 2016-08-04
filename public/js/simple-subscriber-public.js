@@ -47,6 +47,7 @@
 
   function profileResponse(responseText, statusText, xhr, $form)  {
     setTimeout(function () {
+      $('.profile-signin-link').text( 'Profile' );
       $('.profile-submit').hide().html( '<p style="width: 100%;" class="signup-notice success">' + xhr.statusText + '</p>' ).fadeIn()
     }, 2000);
   }
@@ -76,7 +77,7 @@
 
   function signinResponse(responseText, statusText, xhr, $form)  {
     setTimeout(function () {
-      $('.signin-submit').hide().html( '<p style="width: 100%;" class="signup-notice success">' + xhr.statusText + '</p>' ).fadeIn()
+      $('.signin-submit').hide().html( '<p style="width: 100%;" class="signup-notice success">' + xhr.statusText + '<br><a class="btn btn-secondary" href="/profile">View Profile</a></p>' ).fadeIn()
     }, 2000);
   }
 

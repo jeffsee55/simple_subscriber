@@ -195,7 +195,7 @@ class Simple_Subscriber {
     $this->loader->add_action( 'pre_get_posts',           $plugin_public, 'authorize_user_for_query' );
     $this->loader->add_action( 'wp',                      $plugin_public, 'authorize_user_for_post' );
     $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_profile_page' );
-    // $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_signin_page' );
+		$this->loader->add_action( 'admin_post_ss_signout',		$plugin_public, 'signout' );
 	}
 
 	/**
