@@ -64,13 +64,14 @@ class Simple_Subscriber_Form_Processor {
     if( isset( $_POST['last_name'] ) )
       $userdata['last_name'] = $_POST['last_name'];
 
-    if( $_POST['password'] == $_POST['password_confirm'] ) {
-      $userdata['user_pass'] = $_POST['password'];
-      $user_id = wp_update_user( $userdata );
-      $this->sign_in( $userdata );
-    } else {
-      $response = "Unable to update profile. Passwords do not match";
-      $this->ajax_response( 400, $response );
+    if( ! empty( $_POST['password'] ) ) {
+      if( $_POST['password'] == $_POST['password_confirm'] ) {
+        $userdata['user_pass'] = $_POST['password'];
+        $user_id = wp_update_user( $userdata );
+        $this->sign_in( $userdata );
+      } else {
+        $this->ajax_response( 400, 'Passwords do not match' );
+      }
     }
 
     if( is_wp_error( $user_id ) ) {
