@@ -1,4 +1,4 @@
-** Simple Subscriber
+Simple Subscriber
 Contributors: Jeff See
 Donate link: jeffseedesigns.com
 Tags: subscriptions
@@ -11,4 +11,4 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 A subscription and newsletter plugin for a specific site, open-source version to come.
 
 
-**** Changelog
+Changelog
