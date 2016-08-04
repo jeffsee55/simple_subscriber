@@ -153,15 +153,18 @@ class Simple_Subscriber_Public {
 
 
   public function render_signin_page( $controller ) {
-    $controller->addPage( new \VirtualPages\Page( '/signin' ) )
-      ->setTitle( 'Sign In' )
-      ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_signin_template' ) ) );
   }
 
   public function render_profile_page( $controller ) {
-    $controller->addPage( new \VirtualPages\Page( '/profile' ) )
-      ->setTitle( 'Profile' )
-      ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_profile_template' ) ) );
+    if( is_user_logged_in() ) {
+      $controller->addPage( new \VirtualPages\Page( '/profile' ) )
+        ->setTitle( 'Profile' )
+        ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_profile_template' ) ) );
+    } else {
+      $controller->addPage( new \VirtualPages\Page( '/profile' ))
+        ->setTitle( 'Sign In' )
+        ->setTemplate( add_filter( 'virtual_page_template', array( $this, 'find_signin_template' ) ) );
+    }
   }
 
   public function find_profile_template() {

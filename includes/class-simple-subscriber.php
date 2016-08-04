@@ -155,10 +155,8 @@ class Simple_Subscriber {
 	private function define_post_hooks() {
     $form_processor = new Simple_Subscriber_Form_Processor;
 
-    //$this->loader->add_action( 'admin_post_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
-    //$this->loader->add_action( 'admin_post_simple_subscriber_signup', $form_processor, 'process_signup_form' );
-    $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
     $this->loader->add_action( 'wp_ajax_simple_subscriber_signup', $form_processor, 'process_signup_form' );
+    $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signup', $form_processor, 'process_signup_form' );
     $this->loader->add_action( 'wp_ajax_simple_subscriber_profile', $form_processor, 'process_profile_form' );
     $this->loader->add_action( 'wp_ajax_nopriv_simple_subscriber_signin', $form_processor, 'process_signin_form' );
   }
@@ -196,10 +194,8 @@ class Simple_Subscriber {
     $this->loader->add_action( 'pre_get_posts',           $plugin_public, 'filter_private_categories' );
     $this->loader->add_action( 'pre_get_posts',           $plugin_public, 'authorize_user_for_query' );
     $this->loader->add_action( 'wp',                      $plugin_public, 'authorize_user_for_post' );
-    $this->loader->add_action( 'admin_post_nopriv_signin',$plugin_public, 'signin_user' );
-    $this->loader->add_action( 'admin_post_nopriv_signup',$plugin_public, 'register_user' );
     $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_profile_page' );
-    $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_signin_page' );
+    // $this->loader->add_filter( 'virtual_pages',						$plugin_public, 'render_signin_page' );
 	}
 
 	/**

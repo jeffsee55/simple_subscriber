@@ -54,7 +54,7 @@
   function profileError(request, textStatus, errorThrown) {
     console.log( request, textStatus, errorThrown );
     setTimeout(function () {
-      $('.profile-submit').hide().html( '<p style="width: 100%;" class="signup-notice failure">' + request.responseText + '<br><a title="Contact" class="btn btn-secondary" href="#" data-toggle="modal" data-target=".contact-modal">Contact</a></p>' ).fadeIn()
+      $('.profile-submit').hide().html( '<p style="width: 100%;" class="signup-notice failure">' + request.responseText + '<br><button type="submit" class="m-x-auto btn btn-primary">Try Again</button><br><a title="Contact" class="btn btn-secondary" href="#" data-toggle="modal" data-target=".contact-modal">Contact</a></p>' ).fadeIn()
     }, 2000);
   }
 
@@ -82,7 +82,7 @@
 
   function signinError(request, textStatus, errorThrown) {
     setTimeout(function () {
-      $('.signin-submit').hide().html( '<p style="width: 100%;" class="signup-notice failure">' + request.responseText + '<br><a title="Contact" class="btn btn-secondary" href="#" data-toggle="modal" data-target=".contact-modal">Contact</a></p>' ).fadeIn()
+      $('.signin-submit').hide().html( '<p style="width: 100%;" class="signup-notice failure">' + request.responseText + '<br><button type="submit" class="m-x-auto btn btn-primary">Try Again</button><br><a title="Contact" class="btn btn-secondary" href="#" data-toggle="modal" data-target=".contact-modal">Contact</a></p>' ).fadeIn()
     }, 2000);
   }
 })( jQuery );

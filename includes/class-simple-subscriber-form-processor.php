@@ -33,11 +33,11 @@ class Simple_Subscriber_Form_Processor {
   }
 
   public function process_signin_form() {
-    // $nonce = $_POST['signup_nonce'];
-    // if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) ) {
-    //   header('HTTP/1.0 404 Not Found', true, 404);
-    //   die ( 'Busted!');
-    // }
+    $nonce = $_POST['signup_nonce'];
+    if ( ! wp_verify_nonce( $nonce, 'ss-ajax-create-nonce' ) ) {
+      header('HTTP/1.0 404 Not Found', true, 404);
+      die ( 'Busted!');
+    }
 
     $userdata['user_email'] = esc_attr( $_POST['email'] );
     $userdata['user_password'] = esc_attr( $_POST['password'] );
@@ -65,7 +65,7 @@ class Simple_Subscriber_Form_Processor {
       $userdata['last_name'] = $_POST['last_name'];
 
     if( $_POST['password'] == $_POST['password_confirm'] ) {
-      $userdata['user_pass'] = $_POST['password'];
+      $userdata['user_password'] = $_POST['password'];
       $this->sign_in( $userdata );
     } else {
       $response = "Unable to update profile. Passwords do not match";
