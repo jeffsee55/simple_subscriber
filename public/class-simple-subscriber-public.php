@@ -191,15 +191,21 @@ class Simple_Subscriber_Public {
 
 
   private function get_private_cat_ids() {
-    $investor_cat_id    = get_category_by_slug( 'investors' )->cat_ID;
-    $private_cat_ids    = get_term_children( $investor_cat_id, 'category' );
-    $private_cat_ids[]  = $investor_cat_id;
+    $investor_cat = get_category_by_slug( 'investors' );
+    if( $investor_cat ) {
+      $investor_cat_id    = $investor_cat->cat_ID;
+      $private_cat_ids    = get_term_children( $investor_cat_id, 'category' );
+      $private_cat_ids[]  = $investor_cat_id;
 
-    return $private_cat_ids;
+      return $private_cat_ids;
+    }
   }
 
 
   private function is_private_request( $query, $private_cat_ids ) {
+    if( is_user_logged_in() )
+      return true;
+
     if( empty( $query->query_vars['category_name'] ) )
       return false;
 
@@ -213,3 +219,4 @@ class Simple_Subscriber_Public {
     }
   }
 }
+

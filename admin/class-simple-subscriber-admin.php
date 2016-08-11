@@ -105,16 +105,62 @@ class Simple_Subscriber_Admin {
 	}
 
   public function setup_admin_ui() {
-    add_menu_page(
-      'Simple Subscriptions',
-      'Newsletter Subscriptions',
-      'manage_options',
-      'newsletter-subscribers',
-      array( $this, 'render_subscriber_page' )
-    );
+		// function add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function = '', $icon_url = '', $position = null ) {
+		add_menu_page(
+			'Investors',
+			'Investors',
+			'manage_options',
+			'investors',
+			array( $this, 'render_investor_options_page' )
+		);
+
+		// function add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' ) {
+		add_submenu_page(
+      'investors',
+			'Add Investor',
+			'Add Investor',
+			'manage_options',
+			'add-investor',
+			array( $this, 'render_investor_add_page' )
+		);
+
+		add_submenu_page(
+      'investors',
+			'Edit Investor',
+			'Edit Investor',
+			'manage_options',
+			'edit-investor',
+			array( $this, 'render_investor_edit_page' )
+		);
+
+		add_submenu_page(
+      'investors',
+			'Newsletter Subscribers',
+			'Newsletter Subscribers',
+			'manage_options',
+			'newsletter-subscribers',
+			array( $this, 'render_subscribers_page' )
+		);
+
   }
 
-  public function render_subscriber_page() {
-    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-display.php' );
+  public function render_investors_page() {
+    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-investors-page.php' );
+  }
+
+  public function render_subscribers_page() {
+    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-subscribers-page.php' );
+  }
+
+  public function render_investor_options_page() {
+    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-options-page.php' );
+  }
+
+  public function render_investor_add_page() {
+    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-add-investor-page.php' );
+  }
+
+  public function render_investor_edit_page() {
+    include(  plugin_dir_path( __FILE__ ) . 'partials/simple-subscriber-admin-edit-investor-page.php' );
   }
 }
